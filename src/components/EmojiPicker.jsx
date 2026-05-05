@@ -1,0 +1,27 @@
+import { useState } from 'react';
+
+const CATEGORIES = [
+  { icon: '😊', emojis: ['😀','😂','😍','🥰','😎','😢','😡','😱','🤔','🥳','😴','🤗','🙄','😏','🥺','😇','😈','🤩','😋','😜','🤪','🤭','😐','😑','😶','🫣','🥹'] },
+  { icon: '👋', emojis: ['👍','👎','❤️','💔','💪','🙏','👏','🤝','🫶','✌️','🤞','🤟','🖐️','✋','👌','🤌','💅','🫰','🖖','🤙','💯','🔥','⭐','✨','🎉','🎊','🎁'] },
+  { icon: '🐶', emojis: ['🐶','🐱','🐭','🐹','🐰','🦊','🐻','🐼','🐨','🐯','🦁','🐸','🐵','🐔','🦆','🦉','🦇','🐺','🐗','🐴','🦄','🐝','🦋','🐛','🐌','🐞'] },
+  { icon: '🍕', emojis: ['🍕','🍔','🌮','🌯','🥙','🧆','🥚','🍳','🥘','🍲','🍜','🍝','🍛','🍱','🍣','🍤','🍙','🍚','🎂','🍰','🍩','🍦','🍫','🍬','🍭','🧋'] },
+];
+
+export default function EmojiPicker({ onSelect, onClose }) {
+  const [cat, setCat] = useState(0);
+
+  return (
+    <div className="emoji-picker" onMouseDown={(e) => e.stopPropagation()}>
+      <div className="ep-tabs">
+        {CATEGORIES.map((c, i) => (
+          <div key={i} className={`ep-tab${cat === i ? ' active' : ''}`} onClick={() => setCat(i)}>{c.icon}</div>
+        ))}
+      </div>
+      <div className="ep-grid">
+        {CATEGORIES[cat].emojis.map((e, i) => (
+          <div key={i} className="ep-emoji" onClick={() => onSelect(e)}>{e}</div>
+        ))}
+      </div>
+    </div>
+  );
+}
